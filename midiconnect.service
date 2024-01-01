@@ -1,0 +1,17 @@
+[Unit]
+Description=Connects MiniLab keyboard to ttymidi output
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=charlieb
+ExecStart=/usr/bin/ttymidi -s /dev/ttyAMA0 -b 38400
+ExecStartPost=/home/charlieb/midi.sh
+ExecStop=/bin/kill $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+
